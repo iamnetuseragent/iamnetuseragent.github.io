@@ -35,7 +35,7 @@
             --radius-sm: 8px;
         }
 
-        html { scroll-behavior: smooth; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-body);
@@ -43,7 +43,7 @@
             color: var(--text);
             line-height: 1.6;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: visible;
         }
 
         /* ── Layout ── */
@@ -57,7 +57,7 @@
             grid-template-columns: 300px 1fr;
             gap: 32px;
             min-height: 100vh;
-            overflow-x: clip;
+            overflow-x: visible;
         }
 
         /* ── Sidebar / Profile Card ── */
@@ -164,7 +164,7 @@
         .nav svg { width: 18px; height: 18px; }
 
         /* ── Main content ── */
-        .main { display: flex; flex-direction: column; gap: 24px; overflow-x: clip; min-width: 0; }
+        .main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 
         /* ── Glass Card ── */
         .card {
