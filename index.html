@@ -143,8 +143,8 @@
             justify-content: center;
             padding: 10px;
             border-radius: var(--radius-sm);
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: transparent;
+            border: 1px solid transparent;
             color: var(--text-muted);
             text-decoration: none;
             transition: all 0.2s;
@@ -152,12 +152,13 @@
         }
 
         .nav a:hover, .nav button:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-hover);
-            color: var(--text);
+            background: transparent;
+            border-color: transparent;
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(255, 170, 51, 0.6), 0 0 16px rgba(255, 106, 0, 0.3);
         }
 
-        .nav a.active { color: var(--accent); border-color: rgba(255,106,0,0.3); }
+        .nav a.active { color: var(--accent); text-shadow: 0 0 8px rgba(255, 170, 51, 0.4); }
 
         .nav svg { width: 18px; height: 18px; }
 
