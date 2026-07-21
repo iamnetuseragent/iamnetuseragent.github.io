@@ -259,7 +259,23 @@
             background: rgba(255, 106, 0, 0.06);
             border-radius: var(--radius-sm);
             border: 1px solid rgba(255, 106, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
         }
+
+        .btc-address:hover { border-color: rgba(255, 106, 0, 0.4); background: rgba(255, 106, 0, 0.1); }
+
+        .btc-copy {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: #4caf50;
+            margin-left: auto;
+        }
+
+        .btc-address.copied .btc-copy { display: block; }
+        .btc-address.copied .btc-link { color: #4caf50; }
 
         .btc-icon {
             width: 20px;
@@ -628,9 +644,10 @@
             <section class="card" id="donate">
                 <h2 class="card-title">donate</h2>
                 <p class="bio">If you like my work, you can buy me a coffee with Bitcoin.</p>
-                <div class="btc-address">
+                <div class="btc-address" onclick="navigator.clipboard.writeText('bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l').then(()=>{this.classList.add('copied');setTimeout(()=>this.classList.remove('copied'),1500)})" title="Click to copy">
                     <svg class="btc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-                    <a href="bitcoin:bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l" class="btc-link">bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l</a>
+                    <span class="btc-link">bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l</span>
+                    <span class="btc-copy">copied!</span>
                 </div>
             </section>
 
