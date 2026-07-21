@@ -336,12 +336,30 @@
         }
 
         /* ── Visitor counter ── */
-        .visitor-counter {
-            margin-bottom: 12px;
+        .eye-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 14px;
+            font-family: var(--font-mono);
         }
 
-        .visitor-counter img {
-            height: 20px;
+        .eye-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+        }
+
+        .visitor-digits {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 1px;
+            background: rgba(255, 106, 0, 0.08);
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 106, 0, 0.15);
         }
 
         /* ── Responsive ── */
@@ -427,6 +445,10 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="profile-card">
+                <div class="eye-counter" title="Unique visitors">
+                    <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <span class="visitor-digits" id="visitor-count">---</span>
+                </div>
                 <div class="avatar-area">
                     <img src="iamnetuser.png" alt="Allahverdi Suleimanov" class="avatar-img" />
                 </div>
@@ -571,9 +593,6 @@
             </section>
 
             <footer class="footer">
-                <div class="visitor-counter">
-                    <img src="https://www.hitwebcounter.com/counter/counter.php?page=1&style=0006&nbdigits=5&nbcolor=ff6a00&config=bg0a0707&border=000000&digit=ff6a00&color=ff6a00&title=visitors" alt="Visitor Counter" />
-                </div>
                 built with systemd, powered by caffeine
             </footer>
         </main>
@@ -611,6 +630,25 @@
         }, { threshold: 0.3 });
 
         sections.forEach(section => observer.observe(section));
+
+        // ── Visitor counter ──
+        (function() {
+            const el = document.getElementById('visitor-count');
+            if (!el) return;
+
+            // Simple localStorage-based unique visitor count
+            const key = 'portfolio_visits';
+            const today = new Date().toDateString();
+            const stored = JSON.parse(localStorage.getItem(key) || '{"count":0,"lastDate":""}');
+
+            if (stored.lastDate !== today) {
+                stored.count++;
+                stored.lastDate = today;
+                localStorage.setItem(key, JSON.stringify(stored));
+            }
+
+            el.textContent = String(stored.count).padStart(5, '0');
+        })();
     </script>
 </body>
 </html>
