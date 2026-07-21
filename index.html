@@ -52,16 +52,16 @@
             z-index: 1;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+            padding: 40px 24px 120px;
             display: grid;
             grid-template-columns: 300px 1fr;
             gap: 32px;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: clip;
         }
 
         /* ── Sidebar / Profile Card ── */
-        .sidebar { position: sticky; top: 40px; align-self: start; min-width: 0; }
+        .sidebar { position: sticky; top: 40px; align-self: start; }
 
         .profile-card {
             background: var(--surface);
@@ -164,7 +164,7 @@
         .nav svg { width: 18px; height: 18px; }
 
         /* ── Main content ── */
-        .main { display: flex; flex-direction: column; gap: 24px; overflow: hidden; min-width: 0; }
+        .main { display: flex; flex-direction: column; gap: 24px; overflow-x: clip; min-width: 0; }
 
         /* ── Glass Card ── */
         .card {
