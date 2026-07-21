@@ -249,6 +249,36 @@
             line-height: 1.5;
         }
 
+        /* ── BTC Address ── */
+        .btc-address {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 106, 0, 0.06);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 106, 0, 0.15);
+        }
+
+        .btc-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .btc-link {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.2s;
+        }
+
+        .btc-link:hover { color: #fff; }
+
         .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 
         .tag {
@@ -359,7 +389,6 @@
             background: rgba(255, 106, 0, 0.08);
             padding: 3px 8px;
             border-radius: 4px;
-            border: 1px solid rgba(255, 106, 0, 0.15);
         }
 
         /* ── Responsive ── */
@@ -486,6 +515,9 @@
                 <a href="#contact" title="Contact">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 </a>
+                <a href="#donate" title="Donate">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                </a>
             </nav>
         </aside>
 
@@ -592,8 +624,18 @@
                 </div>
             </section>
 
+            <!-- Donate -->
+            <section class="card" id="donate">
+                <h2 class="card-title">donate</h2>
+                <p class="bio">If you like my work, you can buy me a coffee with Bitcoin.</p>
+                <div class="btc-address">
+                    <svg class="btc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                    <a href="bitcoin:bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l" class="btc-link">bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l</a>
+                </div>
+            </section>
+
             <footer class="footer">
-                built with systemd, powered by caffeine
+                hosted somewhere inside your heart
             </footer>
         </main>
     </div>
