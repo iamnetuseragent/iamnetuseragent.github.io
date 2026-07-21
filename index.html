@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>Allahverdi Suleimanov — DevOps & Infrastructure</title>
+    <meta name="description" content="DevOps/Infrastructure engineer. Building reliable self-hosted systems with Python and systemd." />
+    <meta property="og:title" content="Allahverdi Suleimanov" />
+    <meta property="og:description" content="DevOps & Infrastructure engineer. systemd, Python, self-hosting." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #100707;
+            --surface: rgba(170, 35, 25, 0.14);
+            --surface-hover: rgba(190, 45, 32, 0.2);
+            --border: rgba(170, 40, 28, 0.22);
+            --border-hover: rgba(195, 55, 38, 0.38);
+            --text: #d8ccc6;
+            --text-muted: #908078;
+            --text-dim: #5a4e46;
+            --accent: #ff6a00;
+            --accent-warm: #ffaa33;
+            --accent-hot: #cc3300;
+            --accent-glow: rgba(255, 106, 0, 0.2);
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', Consolas, monospace;
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Layout ── */
+        .layout {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 32px;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar / Profile Card ── */
+        .sidebar { position: sticky; top: 40px; align-self: start; }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .avatar-area {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, rgba(170,30,20,0.22), rgba(220,80,30,0.08));
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            transition: transform 0.3s ease;
+        }
+
+        .avatar-area:hover .avatar-img {
+            transform: scale(1.08);
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .profile-subtitle {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .info-list { list-style: none; }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .info-item:last-child { border-bottom: none; }
+
+        .info-label { color: var(--text-muted); font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .info-value { color: var(--text); font-weight: 500; }
+        .info-value a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        .info-value a:hover { color: #fff; }
+
+        /* ── Nav ── */
+        .nav {
+            display: flex;
+            gap: 4px;
+            margin-top: 16px;
+        }
+
+        .nav a, .nav button {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav a:hover, .nav button:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            color: var(--text);
+        }
+
+        .nav a.active { color: var(--accent); border-color: rgba(255,106,0,0.3); }
+
+        .nav svg { width: 18px; height: 18px; }
+
+        /* ── Main content ── */
+        .main { display: flex; flex-direction: column; gap: 24px; }
+
+        /* ── Glass Card ── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: border-color 0.3s;
+        }
+
+        .card:hover { border-color: rgba(255, 106, 0, 0.3); box-shadow: 0 0 15px 2px rgba(255, 106, 0, 0.12), inset 0 0 15px rgba(255, 106, 0, 0.04); }
+
+        .card-title {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title::before {
+            content: '>';
+            color: var(--accent-warm);
+        }
+
+        /* ── Bio ── */
+        .bio p { margin-bottom: 12px; color: var(--text); font-size: 15px; }
+        .bio p:last-child { margin-bottom: 0; }
+        .bio strong { color: #fff; font-weight: 600; }
+        .bio a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        .bio a:hover { border-bottom-color: var(--accent); }
+
+        /* ── Projects ── */
+        .project-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .project-card:last-child { margin-bottom: 0; }
+        .project-card:hover { border-color: rgba(255,106,0,0.5); background: rgba(255,106,0,0.04); box-shadow: 0 0 12px 2px rgba(255,106,0,0.15); }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .project-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .project-links { display: flex; gap: 8px; }
+
+        .project-links a {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 4px 10px;
+            border: 1px solid rgba(255,106,0,0.3);
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .project-links a:hover { background: rgba(255,106,0,0.1); border-color: var(--accent); }
+
+        .project-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255,106,0,0.1);
+            color: var(--accent);
+            border: 1px solid rgba(255,106,0,0.2);
+        }
+
+        .tag.warm { background: rgba(255,204,0,0.08); color: var(--accent-warm); border-color: rgba(255,204,0,0.15); }
+        .tag.hot { background: rgba(204,0,0,0.08); color: var(--accent-hot); border-color: rgba(204,0,0,0.15); }
+
+        /* ── Skills ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .skill-group h3 {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-warm);
+            margin-bottom: 8px;
+        }
+
+        .skill-group ul { list-style: none; }
+        .skill-group li {
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 3px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .skill-group li::before {
+            content: '·';
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* ── Contact ── */
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            background: rgba(255,106,0,0.06);
+            color: var(--accent);
+        }
+
+        .contact-link svg { width: 18px; height: 18px; }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 20px 0;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .layout {
+                grid-template-columns: 1fr;
+                padding: 20px 16px 60px;
+            }
+
+            .sidebar { position: static; }
+
+            .profile-card {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                gap: 16px;
+                align-items: start;
+            }
+
+            .avatar-area { aspect-ratio: 1; margin-bottom: 0; }
+
+            .nav { justify-content: center; }
+
+            .skills-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .profile-card { grid-template-columns: 1fr; text-align: center; }
+            .avatar-area { max-width: 150px; margin: 0 auto 16px; }
+            .info-list { text-align: left; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .contact-links { flex-direction: column; }
+        }
+
+        /* ── Reduced motion ── */
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; animation: none !important; }
+        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+        /* ── Card glow on nav click ── */
+        @keyframes cardGlow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 106, 0, 0); border-color: var(--border); }
+            30% { box-shadow: 0 0 20px 4px rgba(255, 106, 0, 0.3), inset 0 0 20px rgba(255, 106, 0, 0.06); border-color: rgba(255, 106, 0, 0.5); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 106, 0, 0); border-color: var(--border); }
+        }
+
+        .card.glow {
+            animation: cardGlow 1.2s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="avatar-area">
+                    <img src="iamnetuser.png" alt="Allahverdi Suleimanov" class="avatar-img" />
+                </div>
+                <h1 class="profile-name">Allahverdi Suleimanov</h1>
+                <p class="profile-subtitle">devops & infrastructure</p>
+                <ul class="info-list">
+                    <li class="info-item">
+                        <span class="info-label">stack</span>
+                        <span class="info-value">Python / systemd / Linux</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label">focus</span>
+                        <span class="info-value">self-hosting & automation</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label">location</span>
+                        <span class="info-value">Remote / Worldwide</span>
+                    </li>
+                    <li class="info-item">
+                        <span class="info-label">github</span>
+                        <span class="info-value"><a href="https://github.com/iamnetuseragent" target="_blank">@iamnetuseragent</a></span>
+                    </li>
+                </ul>
+            </div>
+            <nav class="nav">
+                <a href="#about" class="active" title="About">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </a>
+                <a href="#projects" title="Projects">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                </a>
+                <a href="#skills" title="Skills">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </a>
+                <a href="#contact" title="Contact">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+            <!-- About -->
+            <section class="card" id="about">
+                <h2 class="card-title">about</h2>
+                <div class="bio">
+                    <p>Hi. I'm <strong>Allahverdi</strong>, also known as <strong>Net User</strong>.</p>
+                    <p>I'm a <strong>DevOps & Infrastructure enthusiast</strong> with a Python background. I like building tools for <strong>self-hosting</strong> and automating deployments via <strong>systemd</strong>.</p>
+                    <p>I created <strong>GhostProvider</strong>, a TUI that scans GitHub repos, analyzes deployability, and deploys services as systemd user-level units. Supports Python, Node.js, Go, Rust, and static sites.</p>
+                    <p>My focus is on <strong>automation and local-first infrastructure</strong>.</p>
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section class="card" id="projects">
+                <h2 class="card-title">projects</h2>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-name">GhostProvider</span>
+                        <div class="project-links">
+                            <a href="https://github.com/iamnetuseragent/demo-ghostprovider" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+                    <p class="project-desc">
+                        TUI for self-hosting & localhost management. Paste a GitHub URL, get a deployability score, and deploy as a systemd service — all from one terminal. No Docker required.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Textual</span>
+                        <span class="tag">systemd</span>
+                        <span class="tag warm">GitHub API</span>
+                        <span class="tag warm">Playwright</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills -->
+            <section class="card" id="skills">
+                <h2 class="card-title">skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-group">
+                        <h3>Languages</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>Bash</li>
+                            <li>JavaScript / Node.js</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Infrastructure</h3>
+                        <ul>
+                            <li>systemd</li>
+                            <li>Docker</li>
+                            <li>Arch Linux</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>DevOps</h3>
+                        <ul>
+                            <li>CI/CD</li>
+                            <li>GitHub Actions</li>
+                            <li>Automated deployment</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Tools</h3>
+                        <ul>
+                            <li>Git</li>
+                            <li>Playwright</li>
+                            <li>Textual</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Systems</h3>
+                        <ul>
+                            <li>Linux (Arch, Ubuntu)</li>
+                            <li>Hyprland / Wayland</li>
+                            <li>Service management</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section class="card" id="contact">
+                <h2 class="card-title">contact</h2>
+                <div class="contact-links">
+                    <a href="mailto:iamnetuseragentoff@proton.me" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Email
+                    </a>
+                    <a href="https://github.com/iamnetuseragent" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        GitHub
+                    </a>
+                    <a href="https://github.com/iamnetuseragent/demo-ghostprovider" target="_blank" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                        GhostProvider
+                    </a>
+                </div>
+            </section>
+
+            <footer class="footer">
+                built with systemd, powered by caffeine
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // ── Card glow on nav click ──
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const targetId = link.getAttribute('href');
+                if (!targetId || !targetId.startsWith('#')) return;
+                const target = document.querySelector(targetId);
+                if (!target) return;
+                target.classList.remove('glow');
+                void target.offsetWidth;
+                target.classList.add('glow');
+                target.addEventListener('animationend', () => {
+                    target.classList.remove('glow');
+                }, { once: true });
+            });
+        });
+
+        // ── Active nav on scroll ──
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>
