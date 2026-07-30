@@ -167,6 +167,13 @@
 
         .nav svg { width: 18px; height: 18px; }
 
+        .lang-btn {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
         /* ── Main content ── */
         .main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
 
@@ -505,22 +512,22 @@
                     <img src="iamnetuser.png" alt="Allahverdi Suleimanov" class="avatar-img" />
                 </div>
                 <h1 class="profile-name">Allahverdi Suleimanov</h1>
-                <p class="profile-subtitle">devops & infrastructure</p>
+                <p class="profile-subtitle" data-i18n="subtitle">devops & infrastructure</p>
                 <ul class="info-list">
                     <li class="info-item">
-                        <span class="info-label">stack</span>
-                        <span class="info-value">Python / systemd / Linux</span>
+                        <span class="info-label" data-i18n="label_stack">stack</span>
+                        <span class="info-value" data-i18n="value_stack">Python / systemd / Linux</span>
                     </li>
                     <li class="info-item">
-                        <span class="info-label">focus</span>
-                        <span class="info-value">self-hosting & automation</span>
+                        <span class="info-label" data-i18n="label_focus">focus</span>
+                        <span class="info-value" data-i18n="value_focus">self-hosting & automation</span>
                     </li>
                     <li class="info-item">
-                        <span class="info-label">location</span>
-                        <span class="info-value">Remote / Worldwide</span>
+                        <span class="info-label" data-i18n="label_location">location</span>
+                        <span class="info-value" data-i18n="value_location">Remote / Worldwide</span>
                     </li>
                     <li class="info-item">
-                        <span class="info-label">github</span>
+                        <span class="info-label" data-i18n="label_github">github</span>
                         <span class="info-value"><a href="https://github.com/iamnetuseragent" target="_blank">@iamnetuseragent</a></span>
                     </li>
                 </ul>
@@ -541,6 +548,7 @@
                 <a href="#donate">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
                 </a>
+                <button class="lang-btn" onclick="toggleLang()" title="Switch language">EN</button>
             </nav>
         </aside>
 
@@ -548,27 +556,27 @@
         <main class="main">
             <!-- About -->
             <section class="card" id="about">
-                <h2 class="card-title">about</h2>
+                <h2 class="card-title" data-i18n="title_about">about</h2>
                 <div class="bio">
-                    <p>Hi. I'm <strong>Allahverdi</strong>, also known as <strong>Net User</strong>.</p>
-                    <p>I'm growing toward DevOps and focused on Linux infrastructure, automation, and self-hosting. I believe the internet should remain open and private, so I build tools that give people more control over the services they run.</p>
-                    <p>I created <strong>GhostProvider</strong>, a TUI for automated self-hosting that scans GitHub repositories, analyzes their deployability, and deploys services as systemd user-level units. It currently supports Python, Node.js, Go, Rust, and static sites.</p>
-                    <p>My focus is on automation, local-first infrastructure, and making self-hosting simpler.</p>
+                    <p data-i18n="bio_1">Hi. I'm <strong>Allahverdi</strong>, also known as <strong>Net User</strong>.</p>
+                    <p data-i18n="bio_2">I'm growing toward DevOps and focused on Linux infrastructure, automation, and self-hosting. I believe the internet should remain open and private, so I build tools that give people more control over the services they run.</p>
+                    <p data-i18n="bio_3">I created <strong>GhostProvider</strong>, a TUI for automated self-hosting that scans GitHub repositories, analyzes their deployability, and deploys services as systemd user-level units. It currently supports Python, Node.js, Go, Rust, and static sites.</p>
+                    <p data-i18n="bio_4">My focus is on automation, local-first infrastructure, and making self-hosting simpler.</p>
                 </div>
             </section>
 
             <!-- Projects -->
             <section class="card" id="projects">
-                <h2 class="card-title">projects</h2>
+                <h2 class="card-title" data-i18n="title_projects">projects</h2>
 
                 <div class="project-card">
                     <div class="project-header">
-                        <span class="project-name">GhostProvider</span>
+                        <span class="project-name" data-i18n="project_name">GhostProvider</span>
                         <div class="project-links">
                             <a href="https://github.com/iamnetuseragent/demo-ghostprovider" target="_blank">GitHub</a>
                         </div>
                     </div>
-                    <p class="project-desc">
+                    <p class="project-desc" data-i18n="project_desc">
                         TUI for self-hosting & localhost management. Paste a GitHub URL, get a deployability score, and deploy as a systemd service — all from one terminal. No Docker required.
                     </p>
                     <div class="project-tags">
@@ -582,36 +590,36 @@
 
             <!-- Skills -->
             <section class="card" id="skills">
-                <h2 class="card-title">skills</h2>
+                <h2 class="card-title" data-i18n="title_skills">skills</h2>
                 <div class="skills-grid">
                     <div class="skill-group">
-                        <h3>Infrastructure</h3>
+                        <h3 data-i18n="skill_infra">Infrastructure</h3>
                         <ul>
-                            <li>Linux server administration</li>
-                            <li>systemd services</li>
-                            <li>process / service management</li>
-                            <li>networking diagnostics</li>
-                            <li>SSH</li>
-                            <li>DNS</li>
-                            <li>port management</li>
+                            <li data-i18n="skill_linux">Linux server administration</li>
+                            <li data-i18n="skill_systemd">systemd services</li>
+                            <li data-i18n="skill_process">process / service management</li>
+                            <li data-i18n="skill_net">networking diagnostics</li>
+                            <li data-i18n="skill_ssh">SSH</li>
+                            <li data-i18n="skill_dns">DNS</li>
+                            <li data-i18n="skill_ports">port management</li>
                         </ul>
                     </div>
                     <div class="skill-group">
-                        <h3>Automation</h3>
+                        <h3 data-i18n="skill_auto">Automation</h3>
                         <ul>
-                            <li>Bash scripting</li>
-                            <li>Python automation</li>
-                            <li>GitHub API</li>
-                            <li>deployment automation</li>
+                            <li data-i18n="skill_bash">Bash scripting</li>
+                            <li data-i18n="skill_python">Python automation</li>
+                            <li data-i18n="skill_ghapi">GitHub API</li>
+                            <li data-i18n="skill_deploy">deployment automation</li>
                         </ul>
                     </div>
                     <div class="skill-group">
-                        <h3>Self-hosting</h3>
+                        <h3 data-i18n="skill_self">Self-hosting</h3>
                         <ul>
-                            <li>application deployment</li>
-                            <li>service isolation</li>
-                            <li>cleanup / lifecycle management</li>
-                            <li>local infrastructure</li>
+                            <li data-i18n="skill_app">application deployment</li>
+                            <li data-i18n="skill_iso">service isolation</li>
+                            <li data-i18n="skill_cleanup">cleanup / lifecycle management</li>
+                            <li data-i18n="skill_local">local infrastructure</li>
                         </ul>
                     </div>
                 </div>
@@ -619,41 +627,157 @@
 
             <!-- Contact -->
             <section class="card" id="contact">
-                <h2 class="card-title">contact</h2>
+                <h2 class="card-title" data-i18n="title_contact">contact</h2>
                 <div class="contact-links">
                     <a href="mailto:iamnetuseragentoff@proton.me" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                        Email
+                        <span data-i18n="contact_email">Email</span>
                     </a>
                     <a href="https://github.com/iamnetuseragent" target="_blank" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        GitHub
+                        <span data-i18n="contact_github">GitHub</span>
                     </a>
                     <a href="https://github.com/iamnetuseragent/demo-ghostprovider" target="_blank" class="contact-link">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-                        GhostProvider
+                        <span data-i18n="contact_ghost">GhostProvider</span>
                     </a>
                 </div>
             </section>
 
             <!-- Donate -->
             <section class="card" id="donate">
-                <h2 class="card-title">donate</h2>
-                <p class="bio">If you like my work, you can buy me a coffee with Bitcoin.</p>
+                <h2 class="card-title" data-i18n="title_donate">donate</h2>
+                <p class="bio" data-i18n="donate_text">If you like my work, you can buy me a coffee with Bitcoin.</p>
                 <div class="btc-address" onclick="navigator.clipboard.writeText('bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l').then(()=>{this.classList.add('copied');setTimeout(()=>this.classList.remove('copied'),1500)})">
                     <svg class="btc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
                     <span class="btc-link">bc1qypqwvjdzjkau55dd95t9zjtwse2sxnufedce3l</span>
-                    <span class="btc-copy">copied!</span>
+                    <span class="btc-copy" data-i18n="copied">copied!</span>
                 </div>
             </section>
 
             <footer class="footer">
-                hosted somewhere inside your heart
+                <span data-i18n="footer">hosted somewhere inside your heart</span>
             </footer>
         </main>
     </div>
 
     <script>
+        // ── i18n ──
+        const i18n = {
+            en: {
+                title_about: 'about',
+                title_projects: 'projects',
+                title_skills: 'skills',
+                title_contact: 'contact',
+                title_donate: 'donate',
+                subtitle: 'devops & infrastructure',
+                label_stack: 'stack',
+                value_stack: 'Python / systemd / Linux',
+                label_focus: 'focus',
+                value_focus: 'self-hosting & automation',
+                label_location: 'location',
+                value_location: 'Remote / Worldwide',
+                label_github: 'github',
+                bio_1: 'Hi. I\'m <strong>Allahverdi</strong>, also known as <strong>Net User</strong>.',
+                bio_2: 'I\'m growing toward DevOps and focused on Linux infrastructure, automation, and self-hosting. I believe the internet should remain open and private, so I build tools that give people more control over the services they run.',
+                bio_3: 'I created <strong>GhostProvider</strong>, a TUI for automated self-hosting that scans GitHub repositories, analyzes their deployability, and deploys services as systemd user-level units. It currently supports Python, Node.js, Go, Rust, and static sites.',
+                bio_4: 'My focus is on automation, local-first infrastructure, and making self-hosting simpler.',
+                project_name: 'GhostProvider',
+                project_desc: 'TUI for self-hosting & localhost management. Paste a GitHub URL, get a deployability score, and deploy as a systemd service \u2014 all from one terminal. No Docker required.',
+                skill_infra: 'Infrastructure',
+                skill_linux: 'Linux server administration',
+                skill_systemd: 'systemd services',
+                skill_process: 'process / service management',
+                skill_net: 'networking diagnostics',
+                skill_ssh: 'SSH',
+                skill_dns: 'DNS',
+                skill_ports: 'port management',
+                skill_auto: 'Automation',
+                skill_bash: 'Bash scripting',
+                skill_python: 'Python automation',
+                skill_ghapi: 'GitHub API',
+                skill_deploy: 'deployment automation',
+                skill_self: 'Self-hosting',
+                skill_app: 'application deployment',
+                skill_iso: 'service isolation',
+                skill_cleanup: 'cleanup / lifecycle management',
+                skill_local: 'local infrastructure',
+                contact_email: 'Email',
+                contact_github: 'GitHub',
+                contact_ghost: 'GhostProvider',
+                donate_text: 'If you like my work, you can buy me a coffee with Bitcoin.',
+                copied: 'copied!',
+                footer: 'hosted somewhere inside your heart'
+            },
+            ru: {
+                title_about: 'обо мне',
+                title_projects: 'проекты',
+                title_skills: 'навыки',
+                title_contact: 'контакты',
+                title_donate: 'поддержать',
+                subtitle: 'devops & инфраструктура',
+                label_stack: 'стек',
+                value_stack: 'Python / systemd / Linux',
+                label_focus: 'фокус',
+                value_focus: 'самостоятельный хостинг & автоматизация',
+                label_location: 'локация',
+                value_location: 'Удалённо / Весь мир',
+                label_github: 'github',
+                bio_1: 'Привет. Я <strong>Аллахверди</strong>, также известный как <strong>Net User</strong>.',
+                bio_2: 'Я развиваюсь в направлении DevOps и фокусируюсь на Linux-инфраструктуре, автоматизации и самостоятельном хостинге. Я верю, что интернет должен оставаться открытым и приватным, поэтому создаю инструменты, которые дают людям больше контроля над их сервисами.',
+                bio_3: 'Я создал <strong>GhostProvider</strong> — TUI для автоматизированного самостоятельного хостинга, который сканирует репозитории GitHub, анализирует их развёртываемость и разворачивает сервисы как systemd-юниты пользовательского уровня. Сейчас поддерживает Python, Node.js, Go, Rust и статические сайты.',
+                bio_4: 'Мой фокус — автоматизация, локальная инфраструктура и упрощение самостоятельного хостинга.',
+                project_name: 'GhostProvider',
+                project_desc: 'TUI для самостоятельного хостинга и управления локальными сервисами. Вставьте URL GitHub, получите оценку развёртываемости и разверните как systemd-сервис — всё из одного терминала. Docker не требуется.',
+                skill_infra: 'Инфраструктура',
+                skill_linux: 'Администрирование Linux-серверов',
+                skill_systemd: 'systemd-сервисы',
+                skill_process: 'управление процессами и сервисами',
+                skill_net: 'диагностика сетей',
+                skill_ssh: 'SSH',
+                skill_dns: 'DNS',
+                skill_ports: 'управление портами',
+                skill_auto: 'Автоматизация',
+                skill_bash: 'Bash-скриптинг',
+                skill_python: 'автоматизация на Python',
+                skill_ghapi: 'GitHub API',
+                skill_deploy: 'автоматизация развёртывания',
+                skill_self: 'Самостоятельный хостинг',
+                skill_app: 'развёртывание приложений',
+                skill_iso: 'изоляция сервисов',
+                skill_cleanup: 'очистка и управление жизненным циклом',
+                skill_local: 'локальная инфраструктура',
+                contact_email: 'Почта',
+                contact_github: 'GitHub',
+                contact_ghost: 'GhostProvider',
+                donate_text: 'Если вам нравится моя работа, вы можете угостить меня кофе с помощью Bitcoin.',
+                copied: 'скопировано!',
+                footer: 'размещено где-то в вашем сердце'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function applyLang(lang) {
+            const t = i18n[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key] !== undefined) {
+                    el.innerHTML = t[key];
+                }
+            });
+            document.documentElement.lang = lang;
+            document.querySelector('.lang-btn').textContent = lang === 'en' ? 'RU' : 'EN';
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+        }
+
+        function toggleLang() {
+            applyLang(currentLang === 'en' ? 'ru' : 'en');
+        }
+
+        applyLang(currentLang);
+
         // ── Card glow on nav click ──
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', (e) => {
