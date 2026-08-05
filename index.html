@@ -165,7 +165,12 @@
             text-shadow: 0 0 8px rgba(255, 170, 51, 0.6), 0 0 16px rgba(255, 106, 0, 0.3);
         }
 
-        .nav a.active { color: var(--accent); text-shadow: 0 0 8px rgba(255, 170, 51, 0.4); }
+        .nav a.active {
+            color: var(--accent);
+            background: rgba(255, 106, 0, 0.12);
+            border-color: rgba(255, 106, 0, 0.35);
+            text-shadow: 0 0 8px rgba(255, 170, 51, 0.4);
+        }
 
         .nav svg { width: 18px; height: 18px; }
 
@@ -955,12 +960,11 @@
             setActiveNav(current.id);
         }
 
-        // ── Active nav on tile hover / focus ──
-        sections.forEach(sec => {
-            sec.addEventListener('mouseenter', () => setActiveNav(sec.id));
-            sec.addEventListener('mouseleave', () => updateActiveNav());
-            sec.addEventListener('focusin', () => setActiveNav(sec.id));
-            sec.addEventListener('focusout', () => updateActiveNav());
+        // ── Active nav on tile hover (delegated) ──
+        document.addEventListener('mouseover', (e) => {
+            const sec = e.target.closest('section[id]');
+            if (sec) setActiveNav(sec.id);
+            else updateActiveNav();
         });
 
         window.addEventListener('scroll', updateActiveNav, { passive: true });
