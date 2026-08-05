@@ -858,7 +858,7 @@
                 label_stack: 'стек',
                 value_stack: 'Python / systemd / Linux',
                 label_focus: 'фокус',
-                value_focus: 'самостоятельный хостинг & автоматизация',
+                value_focus: 'самохостинг & автоматизация',
                 label_location: 'локация',
                 value_location: 'Удалённо / Весь мир',
                 label_github: 'github',
@@ -955,10 +955,12 @@
             setActiveNav(current.id);
         }
 
-        // ── Active nav on tile hover ──
+        // ── Active nav on tile hover / focus ──
         sections.forEach(sec => {
             sec.addEventListener('mouseenter', () => setActiveNav(sec.id));
             sec.addEventListener('mouseleave', () => updateActiveNav());
+            sec.addEventListener('focusin', () => setActiveNav(sec.id));
+            sec.addEventListener('focusout', () => updateActiveNav());
         });
 
         window.addEventListener('scroll', updateActiveNav, { passive: true });
