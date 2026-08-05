@@ -951,6 +951,8 @@
         }
 
         function updateActiveNav() {
+            const hovered = [...sections].find(sec => sec.matches(':hover'));
+            if (hovered) { setActiveNav(hovered.id); return; }
             const readingLine = window.scrollY + window.innerHeight * 0.35;
             let current = sections[0];
             for (const sec of sections) {
