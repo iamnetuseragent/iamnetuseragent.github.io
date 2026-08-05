@@ -339,17 +339,7 @@
         /* ── Skills collapse ── */
         .skills-toggle { cursor: pointer; user-select: none; }
 
-        .skills-toggle::after {
-            content: '+';
-            margin-left: auto;
-            color: var(--accent);
-            font-family: var(--font-mono);
-            font-size: 14px;
-            font-weight: 600;
-            transition: transform 0.3s;
-        }
-
-        #skills.open .skills-toggle::after { content: '–'; }
+        #skills.open .skills-toggle::before { content: 'x'; }
 
         #skills .skills-grid {
             max-height: 0;
@@ -634,7 +624,6 @@
                 margin-top: 0 !important;
                 overflow: visible !important;
             }
-            .skills-toggle::after { display: none; }
 
             .contact-links { gap: 8px; }
             .contact-links a { break-inside: avoid; padding: 6px 10px; font-size: 12px; }
