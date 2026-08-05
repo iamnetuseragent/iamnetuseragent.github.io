@@ -939,6 +939,12 @@
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav a');
 
+        function setActiveNav(id) {
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        }
+
         function updateActiveNav() {
             const readingLine = window.scrollY + window.innerHeight * 0.35;
             let current = sections[0];
@@ -946,10 +952,14 @@
                 if (sec.offsetTop <= readingLine) current = sec;
                 else break;
             }
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === `#${current.id}`);
-            });
+            setActiveNav(current.id);
         }
+
+        // ── Active nav on tile hover ──
+        sections.forEach(sec => {
+            sec.addEventListener('mouseenter', () => setActiveNav(sec.id));
+            sec.addEventListener('mouseleave', () => updateActiveNav());
+        });
 
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         window.addEventListener('resize', updateActiveNav, { passive: true });
