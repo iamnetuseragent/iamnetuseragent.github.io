@@ -950,17 +950,21 @@
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`);
-                    });
-                }
+        function updateActiveNav() {
+            const readingLine = window.scrollY + window.innerHeight * 0.35;
+            let current = sections[0];
+            for (const sec of sections) {
+                if (sec.offsetTop <= readingLine) current = sec;
+                else break;
+            }
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${current.id}`);
             });
-        }, { threshold: 0.3 });
+        }
 
-        sections.forEach(section => observer.observe(section));
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        window.addEventListener('resize', updateActiveNav, { passive: true });
+        updateActiveNav();
 
         // ── Skills collapse toggle ──
         (function() {
@@ -968,7 +972,10 @@
             if (!card) return;
             const title = card.querySelector('.skills-toggle');
             if (!title) return;
-            title.addEventListener('click', () => card.classList.toggle('open'));
+            title.addEventListener('click', () => {
+                card.classList.toggle('open');
+                updateActiveNav();
+            });
         })();
 
         // ── Visitor counter ──
