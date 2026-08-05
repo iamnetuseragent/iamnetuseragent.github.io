@@ -937,12 +937,19 @@
                 target.addEventListener('animationend', () => {
                     target.classList.remove('glow');
                 }, { once: true });
+                setActiveNav(targetId.slice(1));
+                navClickLock = true;
+                clearTimeout(navClickLockTimer);
+                navClickLockTimer = setTimeout(() => { navClickLock = false; }, 1200);
             });
         });
+        window.addEventListener('scrollend', () => { navClickLock = false; }, { passive: true });
 
         // ── Active nav on scroll ──
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav a');
+        let navClickLock = false;
+        let navClickLockTimer = null;
 
         function setActiveNav(id) {
             navLinks.forEach(link => {
@@ -953,6 +960,12 @@
         function updateActiveNav() {
             const hovered = [...sections].find(sec => sec.matches(':hover'));
             if (hovered) { setActiveNav(hovered.id); return; }
+            if (navClickLock) return;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            if (maxScroll > 0 && window.scrollY >= maxScroll - 2) {
+                setActiveNav(sections[sections.length - 1].id);
+                return;
+            }
             const readingLine = window.scrollY + window.innerHeight * 0.35;
             let current = sections[0];
             for (const sec of sections) {
