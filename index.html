@@ -102,6 +102,8 @@
             transform: scale(1.08);
         }
 
+        .avatar-print { display: none; }
+
         .profile-name {
             font-size: 22px;
             font-weight: 700;
@@ -334,6 +336,35 @@
             gap: 12px;
         }
 
+        /* ── Skills collapse ── */
+        .skills-toggle { cursor: pointer; user-select: none; }
+
+        .skills-toggle::after {
+            content: '+';
+            margin-left: auto;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.3s;
+        }
+
+        #skills.open .skills-toggle::after { content: '–'; }
+
+        #skills .skills-grid {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            margin-top: 0;
+            transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+
+        #skills.open .skills-grid {
+            max-height: 600px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
         .skill-group h3 {
             font-family: var(--font-mono);
             font-size: 12px;
@@ -497,6 +528,120 @@
         .card.glow {
             animation: cardGlow 1.5s ease-out;
         }
+
+        /* ── Print / PDF ── */
+        @media print {
+            @page { size: A4; margin: 8mm; background: #f7f2ec; }
+
+            :root {
+                color-scheme: light;
+                --bg: #f7f2ec;
+                --surface: #f7f2ec;
+                --border: #e3d9ce;
+                --text: #2a2320;
+                --text-muted: #6b5f55;
+                --text-dim: #9a8d82;
+                --accent: #d95d00;
+                --accent-warm: #c96a00;
+                --accent-hot: #b91c1c;
+            }
+
+            html { scroll-behavior: auto; }
+            html, body { background: var(--bg) !important; }
+
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                transition: none !important;
+            }
+
+            .layout {
+                display: block;
+                max-width: 100%;
+                min-height: 0;
+                padding: 0;
+                gap: 0;
+            }
+
+            .sidebar { position: static; }
+
+            .profile-card,
+            .card,
+            .project-card,
+            .contact-link {
+                background: transparent;
+                border: none;
+            }
+
+            .profile-card {
+                display: grid;
+                grid-template-columns: 84px 1fr;
+                gap: 12px;
+                padding: 12px;
+                margin-bottom: 8px;
+                break-inside: avoid;
+            }
+
+            .profile-card .avatar-area { margin: 0; width: 84px; }
+            .profile-card .avatar-img { display: none; }
+            .profile-card .avatar-print {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: var(--radius-sm);
+            }
+
+            .eye-counter,
+            .nav,
+            #donate { display: none !important; }
+
+            .info-list { display: flex; flex-direction: column; align-items: flex-end; }
+            .info-item { justify-content: flex-start; gap: 8px; padding: 3px 0; }
+
+            .profile-name { font-size: 18px; color: var(--text); }
+            .profile-subtitle { margin-bottom: 10px; }
+            .bio strong { color: var(--text); }
+            .project-name { color: var(--text); }
+
+            .main { display: block; }
+
+            .card {
+                break-inside: avoid;
+                padding: 10px;
+                margin-bottom: 8px;
+                scroll-margin-top: 0;
+            }
+
+            .card-title { font-size: 11px; margin-bottom: 8px; }
+
+            .bio p { font-size: 11.5px; line-height: 1.4; margin-bottom: 5px; }
+            .project-card { break-inside: avoid; padding: 10px; margin-bottom: 6px; }
+            .project-header { margin-bottom: 4px; }
+            .project-name { font-size: 14px; }
+            .project-desc { font-size: 11.5px; margin-bottom: 6px; line-height: 1.4; }
+            .project-tags { gap: 4px; }
+            .tag { font-size: 10px; padding: 2px 6px; }
+
+            .skill-group h3 { margin-bottom: 4px; }
+            .skill-group li { font-size: 11px; padding: 1px 0; }
+
+            #skills .skills-grid {
+                max-height: none !important;
+                opacity: 1 !important;
+                margin-top: 0 !important;
+                overflow: visible !important;
+            }
+            .skills-toggle::after { display: none; }
+
+            .contact-links { gap: 8px; }
+            .contact-links a { break-inside: avoid; padding: 6px 10px; font-size: 12px; }
+            .contact-links a svg { width: 15px; height: 15px; }
+
+            .footer { padding: 4px 0 0; font-size: 11px; }
+        }
     </style>
 </head>
 <body>
@@ -510,6 +655,7 @@
                 </div>
                 <div class="avatar-area">
                     <img src="iamnetuser.png" alt="Allahverdi Suleimanov" class="avatar-img" />
+                    <img src="iam.jpg" alt="Allahverdi Suleimanov" class="avatar-print" />
                 </div>
                 <h1 class="profile-name">Allahverdi Suleimanov</h1>
                 <p class="profile-subtitle" data-i18n="subtitle">devops & infrastructure</p>
@@ -590,13 +736,15 @@
 
             <!-- Skills -->
             <section class="card" id="skills">
-                <h2 class="card-title" data-i18n="title_skills">skills</h2>
+                <h2 class="card-title skills-toggle" data-i18n="title_skills">skills</h2>
                 <div class="skills-grid">
                     <div class="skill-group">
                         <h3 data-i18n="skill_infra">Infrastructure</h3>
                         <ul>
                             <li data-i18n="skill_linux">Linux server administration</li>
                             <li data-i18n="skill_systemd">systemd services</li>
+                            <li data-i18n="skill_docker">Docker</li>
+                            <li data-i18n="skill_podman">Podman</li>
                             <li data-i18n="skill_process">process / service management</li>
                             <li data-i18n="skill_net">networking diagnostics</li>
                             <li data-i18n="skill_ssh">SSH</li>
@@ -687,6 +835,8 @@
                 skill_infra: 'Infrastructure',
                 skill_linux: 'Linux server administration',
                 skill_systemd: 'systemd services',
+                skill_docker: 'Docker',
+                skill_podman: 'Podman',
                 skill_process: 'process / service management',
                 skill_net: 'networking diagnostics',
                 skill_ssh: 'SSH',
@@ -732,6 +882,8 @@
                 skill_infra: 'Инфраструктура',
                 skill_linux: 'Администрирование Linux-серверов',
                 skill_systemd: 'systemd-сервисы',
+                skill_docker: 'Docker',
+                skill_podman: 'Podman',
                 skill_process: 'управление процессами и сервисами',
                 skill_net: 'диагностика сетей',
                 skill_ssh: 'SSH',
@@ -809,6 +961,15 @@
         }, { threshold: 0.3 });
 
         sections.forEach(section => observer.observe(section));
+
+        // ── Skills collapse toggle ──
+        (function() {
+            const card = document.getElementById('skills');
+            if (!card) return;
+            const title = card.querySelector('.skills-toggle');
+            if (!title) return;
+            title.addEventListener('click', () => card.classList.toggle('open'));
+        })();
 
         // ── Visitor counter ──
         (function() {
